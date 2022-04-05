@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import PostAuther from "./PostAuther";
 import { selectAllPosts } from "./postSlice";
+import ReactionButton from "./ReactionButton";
 import TimeAgo from "./TimeAgo";
 
 const PostLists = () => {
@@ -20,6 +21,7 @@ const PostLists = () => {
       <p>{post.content.substring(0, 100)}</p>
       <PostAuther userId={post.userId} />
       <TimeAgo timestamp={post.date} />
+      <ReactionButton post={post} />
     </article>
   ));
   return (

@@ -8,12 +8,26 @@ const initialState = [
     title: "learning redux toolkit",
     content: "i have heard good things",
     date: sub(new Date(), { minutes: 10 }).toISOString(),
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
   {
     id: "2",
     title: "learning redux toolkit",
     content: "i have heard good things",
     date: sub(new Date(), { minutes: 50 }).toISOString(),
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
 ];
 
@@ -36,14 +50,28 @@ export const postSlice = createSlice({
             ...state,
             id: nanoid(),
             date: new Date().toISOString(),
+            reactions: {
+              thumbsUp: 0,
+              wow: 0,
+              heart: 0,
+              rocket: 0,
+              coffee: 0,
+            },
           },
         };
       },
+    },
+    reactionsAdded(state, action) {
+      const { postId, reaction } = action.payload;
+      const existingPost = state.find((post) => post.id === postId);
+      if (existingPost) {
+        existingPost.reactions[reaction]++;
+      }
     },
   },
 });
 
 export const selectAllPosts = (state) => state.posts;
 
-export const { postAdded } = postSlice.actions;
+export const { postAdded, reactionsAdded } = postSlice.actions;
 export default postSlice.reducer;
